@@ -21,6 +21,7 @@ class _UploadExcelFileState extends State<UploadExcelFile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.blueGrey,
         title: Center(child: Text("Upload Excel File",style: TextStyle(color: Colors.white),)),
         actions: [

@@ -19,7 +19,6 @@ class _UserDashboardState extends State<UserDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blueGrey,
         title: Center(child: Text("User Dashboard",style: TextStyle(color: Colors.white),)),

@@ -11,7 +11,6 @@ class WeatherReport extends StatefulWidget {
 }
 
 class _WeatherReportState extends State<WeatherReport> {
-
   double kelvintoTemp({required final temp}) {
     // final kelvin = _climate!.main!.temp;
     final keltoTemp = temp - 273.15;
@@ -21,55 +20,83 @@ class _WeatherReportState extends State<WeatherReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
-        title: Center(child: Text("Weather Report",style: TextStyle(color: Colors.white),)),
-      ),
-      body: FutureBuilder(
-        future:WeatherService().getWeatherReport(widget.locations) ,
-        builder:(context, snapshot) {
-          if(snapshot.connectionState ==ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator());
-          }else if (snapshot.hasError) {
-            return Text('Error : ${snapshot.error}');
-          }else{
-            final datareport = snapshot.data;
-            return ListView.builder(
-              itemCount: datareport!.length,
+        appBar: AppBar(
+          backgroundColor: Colors.blueGrey,
+          title: Center(
+              child: Text(
+            "Weather Report",
+            style: TextStyle(color: Colors.white),
+          )),
+        ),
+        body: FutureBuilder(
+          future: WeatherService().getWeatherReport(widget.locations),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Text('Error : ${snapshot.error}');
+            } else {
+              final datareport = snapshot.data;
+              return ListView.builder(
+                itemCount: datareport!.length,
                 itemBuilder: (context, index) {
-                  return  Padding(
+                  return Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20,right: 20),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Container(
                         height: 150,
                         width: 250,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.blueGrey,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20,top: 10),
+                          padding: const EdgeInsets.only(left: 20, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("City : ${datareport[index].name}",style: TextStyle(color: Colors.white,fontSize: 20,),),
-                              Text("Temprature : ${kelvintoTemp(temp:datareport[index].main!.temp).toStringAsFixed(0)}°C",style: TextStyle(color: Colors.white,fontSize: 20,),),
-                              Text("FeelsLike : ${datareport[index].wind!.speed} Km/hr",style: TextStyle(color: Colors.white,fontSize: 20,),),
-                              Text("Humidity : ${datareport[index].main!.humidity}°C",style: TextStyle(color: Colors.white,fontSize: 20,),),
+                              Text(
+                                "City : ${datareport[index].name}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                "Temprature : ${kelvintoTemp(temp: datareport[index].main!.temp).toStringAsFixed(0)}°C",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                "FeelsLike : ${datareport[index].wind!.speed} Km/hr",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                "Humidity : ${datareport[index].main!.humidity}°C",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ),
                   );
-                    //ListTile(
+                  //ListTile(
                   //  title:
                   //);
                 },
-            );
-          }
-        },
-      )
-    );
+              );
+            }
+          },
+        ));
   }
 }
