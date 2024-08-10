@@ -19,84 +19,89 @@ class _WeatherReportState extends State<WeatherReport> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          title: Center(
-              child: Text(
-            "Weather Report",
-            style: TextStyle(color: Colors.white),
-          )),
+          automaticallyImplyLeading: false,
+          backgroundColor: Color.fromRGBO(62, 45, 140, 1),
         ),
         body: FutureBuilder(
-          future: WeatherService().getWeatherReport(widget.locations),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Text('Error : ${snapshot.error}');
-            } else {
-              final datareport = snapshot.data;
-              return ListView.builder(
-                itemCount: datareport!.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Container(
-                        height: 150,
-                        width: 250,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.blueGrey,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "City : ${datareport[index].name}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
+              future: WeatherService().getWeatherReport(widget.locations),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Text('Error : ${snapshot.error}');
+                } else {
+                  final datareport = snapshot.data;
+                  return ListView.builder(
+                    itemCount: datareport!.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.only(top: 50),
+                          height: screenSize.height,
+                          width: screenSize.width,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: AlignmentDirectional.bottomEnd,
+                                  colors: [
+                                Color.fromRGBO(157, 82, 172, 0.7),
+                                Color.fromRGBO(62, 45, 143, 1),
+                              ])),
+                          child: SingleChildScrollView(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                Image(
+                                  image: AssetImage('asset/images/cloud.png'),
+                                  width: 180,
+                                  height: 180,
                                 ),
-                              ),
-                              Text(
-                                "Temprature : ${kelvintoTemp(temp: datareport[index].main!.temp).toStringAsFixed(0)}°C",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
+                                Text(
+                                  "${datareport[index].name}",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                              Text(
-                                "FeelsLike : ${datareport[index].wind!.speed} Km/hr",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
+                                Text(
+                                  "${kelvintoTemp(temp: datareport[index].main!.temp).toStringAsFixed(0)}°C",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                              Text(
-                                "Humidity : ${datareport[index].main!.humidity}°C",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
+                                Text(
+                                  "${datareport[index].wind!.speed} Km/h",
+                                  style:
+                                      TextStyle(color: Colors.white, fontSize: 25),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Max: ${kelvintoTemp(temp: datareport[index].main!.tempMax).toStringAsFixed(0)}°C",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Text(
+                                      "Min: ${kelvintoTemp(temp: datareport[index].main!.tempMin).toStringAsFixed(0)}°C",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                                Image(image: AssetImage("asset/images/House.png")),
+                              ])));
+                    },
                   );
-                  //ListTile(
-                  //  title:
-                  //);
-                },
-              );
-            }
-          },
-        ));
+                }
+              },
+            ),
+         );
   }
 }

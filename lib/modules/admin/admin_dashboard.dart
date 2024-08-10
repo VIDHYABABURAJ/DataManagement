@@ -1,5 +1,6 @@
 import 'package:data_storage_management/modules/SignIn_Auth_Screens/signinScreen.dart';
 import 'package:data_storage_management/modules/admin/add_location.dart';
+import 'package:data_storage_management/modules/admin/location_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +89,7 @@ class _AdminDashBoardState extends State<AdminDashBoard> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AddLocation(),
+                                  builder: (context) => LocationData(),
                                 ));
                           },
                         ),

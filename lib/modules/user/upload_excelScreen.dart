@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:data_storage_management/modules/SignIn_Auth_Screens/signinScreen.dart';
 import 'package:data_storage_management/modules/user/weather_report.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,7 @@ class _UploadExcelFileState extends State<UploadExcelFile> {
           IconButton(
               onPressed: () async{
                 await Provider.of<AuthService>(context, listen: false).signOut();
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignInScreen(),), (route) => false);
               },
               icon: Icon(Icons.logout,color: Colors.white,))
         ],

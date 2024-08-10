@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:data_storage_management/modules/SignIn_Auth_Screens/signinScreen.dart';
 import 'package:data_storage_management/modules/user/upload_excelScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,6 +27,7 @@ class _UserDashboardState extends State<UserDashboard> {
           IconButton(
               onPressed: () async{
                 await Provider.of<AuthService>(context, listen: false).signOut();
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignInScreen(),), (route) => false);
               },
               icon: Icon(Icons.logout,color: Colors.white,))
         ],
