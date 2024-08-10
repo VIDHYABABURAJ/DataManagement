@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223334899075",
+    "project_id": "data-management-8b1e9",
+    "storage_bucket": "data-management-8b1e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223334899075:android:9ce9216d9f75cc51feeab6",
+        "android_client_info": {
+          "package_name": "com.example.data_storage_management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6jhk4E1sGC1v6gJJ2mYI43RWnGTpvjxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
