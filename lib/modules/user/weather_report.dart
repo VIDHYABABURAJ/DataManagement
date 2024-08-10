@@ -12,6 +12,12 @@ class WeatherReport extends StatefulWidget {
 
 class _WeatherReportState extends State<WeatherReport> {
 
+  double kelvintoTemp({required final temp}) {
+    // final kelvin = _climate!.main!.temp;
+    final keltoTemp = temp - 273.15;
+    return keltoTemp;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +39,31 @@ class _WeatherReportState extends State<WeatherReport> {
                 itemBuilder: (context, index) {
                   return  Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: Container(
-                      height: 150,
-                      width: 250,
-                      color: Colors.red,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20,right: 20),
+                      child: Container(
+                        height: 150,
+                        width: 250,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                          color: Colors.blueGrey,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20,top: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("City : ${datareport[index].name}",style: TextStyle(color: Colors.white,fontSize: 20,),),
+                              Text("Temprature : ${kelvintoTemp(temp:datareport[index].main!.temp).toStringAsFixed(0)}°C",style: TextStyle(color: Colors.white,fontSize: 20,),),
+                              Text("FeelsLike : ${datareport[index].wind!.speed} Km/hr",style: TextStyle(color: Colors.white,fontSize: 20,),),
+                              Text("Humidity : ${datareport[index].main!.humidity}°C",style: TextStyle(color: Colors.white,fontSize: 20,),),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   );
                     //ListTile(
-                  //  title: Text(datareport[index].name),
+                  //  title:
                   //);
                 },
             );

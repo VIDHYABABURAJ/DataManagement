@@ -51,15 +51,12 @@ class _UserDashboardState extends State<UserDashboard> {
                         child: Container(
                           height: 600,
                           width: 350,
-                          color: Colors.blueGrey.withOpacity(0.1),
                           child: StreamBuilder(
                             stream: FirebaseFirestore.instance.collection('locations').snapshots(),
                             builder:(context, snapshot) {
                               if(snapshot.connectionState == ConnectionState.waiting){
                                 return CircularProgressIndicator();
                               }
-
-
                               if (snapshot.hasError){
 
                                 return Text('Error');
@@ -71,11 +68,31 @@ class _UserDashboardState extends State<UserDashboard> {
                                 return ListView.builder(
                                   itemCount: details.length,
                                   itemBuilder: (context, index) {
-                                    return Column(
-                                      children: [
-                                        Text(details[index]['country']),
-                                        Text(details[index]['state'])
-                                      ],
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Container(
+                                        height: 150,
+                                        width: 300,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                          color: Colors.blueGrey.withOpacity(0.8),
+                                        ),
+                                        //
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 20,top: 10),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Country : ${details[index]['country']}",style: TextStyle(color: Colors.white,fontSize: 20),),
+                                              Text("State : ${details[index]['state']}",style: TextStyle(color: Colors.white,fontSize: 20),),
+                                              Text("District : ${details[index]['district']}",style: TextStyle(color: Colors.white,fontSize: 20),),
+                                              Text("City : ${details[index]['city']}",style: TextStyle(color: Colors.white,fontSize: 20),),
+
+                                            ],
+                                          ),
+                                        ),
+
+                                      ),
                                     );
                                   },);
                               }
