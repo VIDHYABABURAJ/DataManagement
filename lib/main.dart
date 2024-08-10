@@ -25,6 +25,7 @@ void main() async{
 
         ],
    child: MaterialApp(
+     debugShowCheckedModeBanner: false,
   home: role  == null ?  SignInScreen() : role == 'admin' ? AdminDashBoard() : UserDashboard()
   ),
    )
